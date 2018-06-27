@@ -14,11 +14,9 @@ matrix:
           packages:
             - g++-7
             - libgmp-dev
-            - gtest
-            - libz
+            - libz-dev
           script:
             - cmake .
 
 notifications:
-  email:
-    - michael.a.cornwell@gmail.com
+  email: false
