@@ -16,9 +16,9 @@ matrix:
             - g++-7
             - libgmp-dev
             - libz-dev
-          script:
-            - cmake CMakeLists.txt
-            - cmake-build-debug/run_tests
+      scrip:
+        - cmake CMakeLists.txt
+        - cmake-build-debug/run_tests
 
 notifications:
   email: false
