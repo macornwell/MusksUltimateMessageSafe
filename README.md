@@ -42,9 +42,11 @@ Because exact calculations were needed on very large integers (in excess of 10^1
 ## FAQ
 **1. Are there any hints? I can't figure it out.**
 *Keep trying. You can do it, you do not need any hints.*
+
 **2. I know English well, but I don't know any of the languages you have.**
 *While I'd like to support a language you understand (email me), perhaps its time for you to learn one 
 that I understand.*
+
 **3. Couldn't I just ask around what the safe combination is? **
 *You could but you wouldn't learn anything, and you wouldn't have had the experience of cracking this safe.*
 *While I'd like to support a language you understand (email me), perhaps its time for you to learn one 

@@ -6,15 +6,18 @@ matrix:
         - python -m unittest discover
 
     - os: linux
-          addons:
-            apt:
-              sources:
-                - ubuntu-toolchain-r-test
-              packages:
-                - g++-7
-                - gmp
-                - gtest
-                - zlib
+      language: cpp
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+            - gmp
+            - gtest
+            - zlib
+          script:
+            - cmake .
 
 notifications:
   email:
