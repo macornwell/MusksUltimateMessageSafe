@@ -1,0 +1,21 @@
+matrix:
+  include:
+    - language: python
+      python: 3.4
+      script:
+        - python -m unittest discover
+
+    - os: linux
+          addons:
+            apt:
+              sources:
+                - ubuntu-toolchain-r-test
+              packages:
+                - g++-7
+                - gmp
+                - gtest
+                - zlib
+
+notifications:
+  email:
+    - michael.a.cornwell@gmail.com
