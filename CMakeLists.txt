@@ -26,7 +26,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 --coverage")
 
 include_directories(cpp/src)
 
-add_subdirectory(cpp/dep/googletest)
+include(cmake/googletest.cmake)
+fetch_googletest(
+        ${PROJECT_SOURCE_DIR}/cmake
+        ${PROJECT_BINARY_DIR}/googletest
+)
+
+
+#add_subdirectory(cpp/dep/googletest)
 add_subdirectory(cpp/src)
 add_subdirectory(cpp/test)
 
