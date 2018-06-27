@@ -12,6 +12,7 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
+            - cmake
             - g++-7
             - libgmp-dev
             - libz-dev
