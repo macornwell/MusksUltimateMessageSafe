@@ -36,30 +36,6 @@ matrix:
         - cd Line/CMakeFiles/Line.dir
         - coveralls
 
-"""
-
-    - os: linux
-      language: cpp
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - cmake
-            - g++-7
-            - libgmp-dev
-            - libz-dev
-      script:
-        - cmake --target CMakeLists.txt
-        - cmake-build-debug/run_tests
-
-      before_install:
-        - pip install --user cpp-coveralls
-
-      after_success:
-        - coveralls --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*test/.*.cpp.*"
-        """
-
 
 notifications:
   email: false
