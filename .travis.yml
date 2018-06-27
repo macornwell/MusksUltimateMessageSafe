@@ -13,9 +13,9 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-7
-            - gmp
+            - libgmp-dev
             - gtest
-            - zlib
+            - libz
           script:
             - cmake .
 
