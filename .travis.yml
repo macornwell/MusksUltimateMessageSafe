@@ -21,10 +21,10 @@ matrix:
         - cmake-build-debug/run_tests
         - ctest
 
-      - before_install:
+      before_install:
         - pip install --user cpp-coveralls
 
-      - after_success:
+      after_success:
         - coveralls --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*test/.*.cpp.*"
 
 
