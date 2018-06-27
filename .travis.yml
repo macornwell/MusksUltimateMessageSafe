@@ -19,7 +19,7 @@ matrix:
             - libz-dev
       script:
         - cmake CMakeLists.txt
-        - cmake-build-debug/run_tests
+        - bin/run_tests
 
       before_install:
         - pip install --user cpp-coveralls
