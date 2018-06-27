@@ -50,4 +50,4 @@ gmock.pc
 gmock_main.pc
 gtest.pc
 gtest_main.pc
-
+googletest/

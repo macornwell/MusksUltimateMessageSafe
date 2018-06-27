@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <gtest/gtest.h>
 #include <memory>
-#include "musks_ultimate_message_safe.h"
+#include "src/musks_ultimate_message_safe.h"
 
 class MusksUltimateMessafeSafeTest : public ::testing::Test {
 protected:

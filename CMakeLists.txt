@@ -24,9 +24,10 @@ project(MusksUltimateMessageSafe)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 --coverage")
 
-include_directories(cpp/src)
+include_directories(cpp)
 
 include(cmake/googletest.cmake)
+
 fetch_googletest(
         ${PROJECT_SOURCE_DIR}/cmake
         ${PROJECT_BINARY_DIR}/googletest
