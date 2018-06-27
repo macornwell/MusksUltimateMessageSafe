@@ -5,36 +5,27 @@ matrix:
       script:
         - python -m unittest discover
 
-    - language: cpp
 
-      install:
-        - gem install coveralls-lcov
-
+    - os: linux
+      language: cpp
       addons:
         apt:
+          sources:
+            - ubuntu-toolchain-r-test
           packages:
             - cmake
-          sources:
-            - kalakris-cmake
-
-      compiler:
-        - gcc
+            - g++-7
+            - libgmp-dev
+            - libz-dev
+      script:
+        - cmake CMakeLists.txt
+        - cmake-build-debug/run_tests
 
       before_install:
         - pip install --user cpp-coveralls
 
-      script:
-        - mkdir build
-        - cd build
-        - cmake ..
-        - make
-        - cd Line_Test/tests
-        - ./run_tests
-
       after_success:
-        - cd -
-        - cd Line/CMakeFiles/Line.dir
-        - coveralls
+        - coveralls --root .. -E ".*external.*" -E ".*CMakeFiles.*" -E ".*test/.*.cpp.*"
 
 
 notifications:

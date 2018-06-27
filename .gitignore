@@ -33,3 +33,21 @@
 
 .idea/*
 cmake-build*
+CMakeCache.txt
+CMakeFiles/
+Makefile
+MusksUltimateMessageSafe.cbp
+bin/
+cmake_install.cmake
+cpp/src/CMakeFiles/
+cpp/src/Makefile
+cpp/src/cmake_install.cmake
+cpp/test/CMakeFiles/
+cpp/test/Makefile
+cpp/test/SafeTests.cbp
+cpp/test/cmake_install.cmake
+gmock.pc
+gmock_main.pc
+gtest.pc
+gtest_main.pc
+
