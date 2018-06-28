@@ -23,8 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 const int DRAMATIC_WAIT_IN_SECONDS = 1;
 
-
-int main(int argc, char *argv[]) {
+void StartSafeProgram() {
     std::cout << "Welcome to Elon Musk's Ultimate Message Safe. Only Elon may enter." << std::endl
               << "The safe requires the following four (4) inputs:" << std::endl
               << std::endl
@@ -87,6 +86,9 @@ int main(int argc, char *argv[]) {
     std::this_thread::sleep_for(std::chrono::seconds(DRAMATIC_WAIT_IN_SECONDS));
     std::cout << std::endl << std::endl << "\"" << message << "\"" << std::endl;
     std::this_thread::sleep_for(std::chrono::seconds(DRAMATIC_WAIT_IN_SECONDS));
+}
 
+int main(int argc, char *argv[]) {
+    StartSafeProgram();
     return 0;
 }

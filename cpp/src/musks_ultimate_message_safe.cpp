@@ -40,6 +40,7 @@ void MusksUltimateMessageSafe::TurnUltimateDialLeftToGetABigNumber(
     mpz_init(seed);
     mpz_set_str(seed, this->DecryptMagicSeed().data(), this->BASS_DECIMAL);
     mpz_add(large_number_to_fill, large_number_to_fill, seed);
+    mpz_clear(seed);
 }
 
 void MusksUltimateMessageSafe::TurnUtlimateDialRightToGetASmallNumber(
@@ -82,7 +83,7 @@ void MusksUltimateMessageSafe::TurnUtlimateDialRightToGetASmallNumber(
     std::string packed_2_letters = this->ConvertNumberToLetters(packed_2_number);
     std::vector<int> offset_1 = this->UnpackToOffsetList(packed_1_letters);
     std::vector<int> offset_2 = this->UnpackToOffsetList(packed_2_letters);
-    std::vector<int> whole_values = this->UnscrunchBinary(scrunched);
+    std::vector<long> whole_values = this->UnscrunchBinary(scrunched);
     whole_values = this->ContinueTurningLeftUntilClickIsHeard(whole_values, offset_2);
     whole_values = this->ContinueTurningLeftUntilClickIsHeard(whole_values, offset_1);
 
@@ -92,10 +93,12 @@ void MusksUltimateMessageSafe::TurnUtlimateDialRightToGetASmallNumber(
     }
 
     mpz_set_str(number_to_fill, as_string.data(), this->BASS_DECIMAL);
+    mpz_clear(packed_1_number);
+    mpz_clear(packed_2_number);
 }
 
 std::string MusksUltimateMessageSafe::TurnUltimateDialLeftUntilTheMessageAppears(
-        unsigned long rotations_left, const mpz_t smaller_numbers) {
+        unsigned long rotations_left, const mpz_t &smaller_numbers) {
     std::stringstream stream;
     std::string message;
     unsigned long an_idiots_luggage_combination = rotations_left;
@@ -116,13 +119,14 @@ std::string MusksUltimateMessageSafe::TurnUltimateDialLeftUntilTheMessageAppears
     return message;
 }
 
-std::vector<int> MusksUltimateMessageSafe::ContinueTurningLeftUntilClickIsHeard(const std::vector<int>& whole_values,
-                                                                                const std::vector<int>& offsets) {
-    std::vector<int> as_ints;
+std::vector<long> MusksUltimateMessageSafe::ContinueTurningLeftUntilClickIsHeard(
+        const std::vector<long> &whole_values, const std::vector<int> &offsets) {
+    std::vector<long> as_ints;
     for (int i = 0; i < whole_values.size(); ++i) {
-        int whole_value = whole_values[i];
-        int offset = offsets[i];
-        as_ints.push_back((whole_value * this->ULTIMATE_ANSWER) + offset);
+        long whole_value = whole_values[i];
+        long offset = offsets[i];
+        long value = ((whole_value * this->ULTIMATE_ANSWER) + offset);
+        as_ints.push_back(value);
     }
 
     return as_ints;
@@ -142,11 +146,11 @@ char MusksUltimateMessageSafe::ConsultBlackBall(int value) {
 }
 
 int MusksUltimateMessageSafe::ConsultBlackBall(char letter) {
-    int value = -1;
+    int value = 0;
     for (int i = 0; i < this->alphabet_lowercase_.size(); ++i) {
         if (letter == this->alphabet_lowercase_[i]) {
             try {
-                value = this->TWENTY_TWO_SIDED_DIE_ENCASED_IN_WATER[i];
+                value = this->TWENTY_TWO_SIDED_DIE_ENCASED_IN_WATER.at(i);
                 break;
             }
             catch (std::exception& e) {
@@ -158,8 +162,8 @@ int MusksUltimateMessageSafe::ConsultBlackBall(char letter) {
     return value;
 }
 
-std::vector<int> MusksUltimateMessageSafe::UnscrunchBinary(const std::string& scrunched) {
-    std::vector<int> results;
+std::vector<long> MusksUltimateMessageSafe::UnscrunchBinary(const std::string &scrunched) {
+    std::vector<long> results;
     long long as_int = stoll(scrunched);
     while (as_int > 1) {
         if (as_int & 0b1) {
@@ -173,7 +177,7 @@ std::vector<int> MusksUltimateMessageSafe::UnscrunchBinary(const std::string& sc
     return results;
 }
 
-std::string MusksUltimateMessageSafe::ConvertNumberToLetters(const mpz_t& big_number) {
+std::string MusksUltimateMessageSafe::ConvertNumberToLetters(const mpz_t &big_number) {
     std::string as_letters;
     std::unique_ptr<char[]> number_char_p(mpz_get_str(NULL, this->BASS_DECIMAL, big_number));
     std::string number_as_text(&number_char_p[0]);
@@ -204,10 +208,11 @@ std::string MusksUltimateMessageSafe::ConvertNumberToLetters(const mpz_t& big_nu
     return as_letters;
 }
 
-std::vector<int> MusksUltimateMessageSafe::UnpackToOffsetList(const std::string& letters) {
+std::vector<int> MusksUltimateMessageSafe::UnpackToOffsetList(const std::string &letters) {
     std::vector<int> final;
     for(char c : letters) {
-        final.push_back(this->ConsultBlackBall(c));
+        int value = this->ConsultBlackBall(c);
+        final.push_back(value);
     }
 
     return final;
@@ -239,7 +244,7 @@ std::string MusksUltimateMessageSafe::DecryptMagicSeed() {
     infstream.zfree = Z_NULL;
     infstream.opaque = Z_NULL;
 
-    Bytef buffer[this->BUFFER_SIZE];
+    Bytef buffer[this->BUFFER_SIZE] = {};
     std::vector<Bytef> deep_copy = this->SECRET_SEED;
 
     infstream.avail_in = (uInt)this->SECRET_SEED.size();
@@ -255,6 +260,9 @@ std::string MusksUltimateMessageSafe::DecryptMagicSeed() {
         Bytef byte = buffer[i];
         if (byte > this->CEILING) {
             continue;
+        }
+        if (byte < 0x1) {
+            break;
         }
 
         result += byte;

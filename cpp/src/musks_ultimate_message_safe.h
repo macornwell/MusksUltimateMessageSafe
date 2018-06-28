@@ -34,25 +34,26 @@ public:
     void TurnUtlimateDialRightToGetASmallNumber(
             unsigned long rotations_right, const mpz_t &big_number, mpz_t &number_to_fill);
     std::string TurnUltimateDialLeftUntilTheMessageAppears(
-            unsigned long rotations_left, const mpz_t smaller_number);
+            unsigned long rotations_left, const mpz_t &smaller_number);
 
 private:
 
     std::string DecryptMagicSeed();
     const std::map<const int, const char> GetIndexToLetter();
     const std::map<const char, const int> GetLetterToIndex();
-    std::vector<int> ContinueTurningLeftUntilClickIsHeard(const std::vector<int>& whole_values, const std::vector<int>& offsets);
+    std::vector<long> ContinueTurningLeftUntilClickIsHeard(
+            const std::vector<long> &whole_values, const std::vector<int> &offsets);
     char ConsultBlackBall(int value);
-    std::vector<int> UnscrunchBinary(const std::string& scrunched);
-    std::string ConvertNumberToLetters(const mpz_t& number);
+    std::vector<long> UnscrunchBinary(const std::string &scrunched);
+    std::string ConvertNumberToLetters(const mpz_t &number);
     int ConsultBlackBall(char letter);
-    std::vector<int> UnpackToOffsetList(const std::string& letters);
+    std::vector<int> UnpackToOffsetList(const std::string &letters);
 
     const int BITES_SHIFTED = 0x4;
     const uInt BUFFER_SIZE = 4096;
     const int ULTIMATE_ANSWER = 42;
-    const int HIGH = 0x1;
-    const int LUCKY_NUMBER = 0x3;
+    const long HIGH = 0x1;
+    const long LUCKY_NUMBER = 0x3;
     const int COURSE_CORRECTION = 320;
     const int CEILING = 0x39;
     const char ASCII_DROP = '0';

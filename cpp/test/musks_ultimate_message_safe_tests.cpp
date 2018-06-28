@@ -22,61 +22,66 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class MusksUltimateMessafeSafeTest : public ::testing::Test {
 protected:
     virtual void SetUp() {
-        mpz_init(this->integer1_);
-        mpz_set_ui(this->integer1_, 0);
-        mpz_init(this->integer2_);
-        mpz_set_ui(this->integer2_, 0);
     }
 
     virtual void TearDown() {
     }
 
-    mpz_t integer1_;
-    mpz_t integer2_;
     MusksUltimateMessageSafe safe_;
 };
 
 TEST_F(MusksUltimateMessafeSafeTest, TurnUltimateDialLeftToGetABigNumber1) {
+    mpz_t integer1;
+    mpz_init(integer1);
+
     unsigned long starting_number = 1;
     unsigned long rotations_left = 1;
-    this->safe_.TurnUltimateDialLeftToGetABigNumber(starting_number, rotations_left, this->integer1_);
+    this->safe_.TurnUltimateDialLeftToGetABigNumber(starting_number, rotations_left, integer1);
 
-    std::unique_ptr<char[]> result_pointer(mpz_get_str(NULL, 10, this->integer1_));
+    std::unique_ptr<char[]> result_pointer(mpz_get_str(NULL, 10, integer1));
     std::string result(&result_pointer[0]);
     std::string expected_result = "226169770062649671975095064650885165073473873466476969629424020831684677671512831015195781658332172748345988614697960374030307145316544864031281391887096765740000987048034";
     EXPECT_EQ(expected_result, result);
 }
 
 TEST_F(MusksUltimateMessafeSafeTest, TurnUltimateDialLeftToGetABigNumber2) {
-    unsigned long starting_number = 58;
-    unsigned long rotations_left = 22;
-    this->safe_.TurnUltimateDialLeftToGetABigNumber(starting_number, rotations_left, this->integer2_);
+    mpz_t integer1;
+    mpz_init(integer1);
 
-    std::unique_ptr<char[]> result_pointer = std::unique_ptr<char[]>(mpz_get_str(NULL, 10, this->integer2_));
+    unsigned long starting_number = 58;
+    unsigned long rotations_left = 80;
+    this->safe_.TurnUltimateDialLeftToGetABigNumber(starting_number, rotations_left, integer1);
+
+    std::unique_ptr<char[]> result_pointer = std::unique_ptr<char[]>(mpz_get_str(NULL, 10, integer1));
     std::string result = &result_pointer[0];
-    std::string expected_result = "226169770062649671975095064650885185563006315551083811999265990475439956554521464222954542507037221461515179149470325984246370121316544864031281391887096765735602940536930";
+    std::string expected_result = "289952203209166769731320260745999079281069613787727591807188853216289477734824614467054044779436718453547184789438846790465490761316544864031281391887096765735602940536930";
     EXPECT_EQ(expected_result, result);
 }
 
 TEST_F(MusksUltimateMessafeSafeTest, TurnUtlimateDialRightToGetASmallNumber) {
-    unsigned long rotations_right = 220;
-    mpz_set_str(this->integer1_, "226169770062649671975095064650885165073473873466476969629424020831684677671512831015195781658332172748345988614697960374030307145316544864031281391887096765740000987048034", 10);
-    this->safe_.TurnUtlimateDialRightToGetASmallNumber(rotations_right, this->integer1_, this->integer2_);
+    mpz_t integer1;
+    mpz_init(integer1);
+    mpz_t integer2;
+    mpz_init(integer2);
 
-    std::unique_ptr<char[]> result_pointer = std::unique_ptr<char[]>(mpz_get_str(NULL, 10, this->integer2_));
+    unsigned long rotations_right = 221;
+    mpz_set_str(integer1, "289952203209166769731320260745999079281069613787727591807188853216289477734824614467054044779436718453547184789438846790465490761316544864031281391887096765735602940536930", 10);
+    this->safe_.TurnUtlimateDialRightToGetASmallNumber(rotations_right, integer1, integer2);
+
+    std::unique_ptr<char[]> result_pointer = std::unique_ptr<char[]>(mpz_get_str(NULL, 10, integer2));
     std::string result = &result_pointer[0];
-    std::string expected_result = "2626247227942284226834692704529223722786581623682436283827962788263630402604636427002828262653042292271023641778228817842282531427083049598422933128243623663834161627722642237617765828296427863002283632142792";
+    std::string expected_result = "270862412836236458252642268867205902245058122461237727136720590227132772636859002293279263292374615627102836529223686157599858806364179862406156652631202476237223526325261823741786229064802786300663426740";
     EXPECT_EQ(expected_result, result);
 }
 
 TEST_F(MusksUltimateMessafeSafeTest, TurnUltimateDialLeftUntilTheMessageAppears) {
+    mpz_t integer1;
+    mpz_init(integer1);
     unsigned long rotations_left = 10;
-    mpz_set_str(this->integer1_, "13258259824895728903745280937498234", 10);
-    std::string message = safe_.TurnUltimateDialLeftUntilTheMessageAppears(rotations_left, this->integer1_);
+    mpz_set_str(integer1, "13258259824895728903745280937498234", 10);
+    std::string message = safe_.TurnUltimateDialLeftUntilTheMessageAppears(rotations_left, integer1);
     std::string expected_message = "R\x03\x02U+\xD1\xF9\xD4\x0E";
     EXPECT_EQ(expected_message, message);
 }
-
-
 
 
