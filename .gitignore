@@ -36,7 +36,6 @@
 cmake-build*
 CMakeCache.txt
 CMakeFiles/
-Makefile
 MusksUltimateMessageSafe.cbp
 bin/
 cmake_install.cmake
