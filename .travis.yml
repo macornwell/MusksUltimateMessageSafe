@@ -7,8 +7,6 @@ matrix:
           - "6"
           - "5"
           - "4"
-      script:
-          - make test-coveralls
 
 
     - language: python
