@@ -37,8 +37,9 @@ are provided.
 
 ### Dependencies
 Because exact calculations were needed on very large integers (in excess of 10^128) external libraries were needed.
-- The C++ version requires gmp.
+- The C++ version requires gmp and zlib.
 - The Python version requires sympy.
+- The JavaScript version requires mocha, pako, and big-integer.
 
 ## FAQ
 **1. Are there any hints? I can't figure it out.**
