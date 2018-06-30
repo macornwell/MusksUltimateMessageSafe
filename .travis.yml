@@ -5,6 +5,7 @@ matrix:
       install:
         - pip install -r python/requirements.txt
       script:
+        - cd python
         - python -m unittest discover
 
 
