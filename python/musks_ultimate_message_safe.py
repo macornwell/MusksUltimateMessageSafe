@@ -19,13 +19,16 @@ import sympy
 import zlib
 from string import ascii_lowercase
 
+
 class MusksUltimateMessageSafe:
-    BITE_SHIFT_PLACES = 4
+    BITES_SHIFTED = 0x4
     ULTIMATE_ANSWER = 42
-    HIGH = 1
-    LUCKY_NUMBER = 3
+    HIGH = 0x1
+    LUCKY_NUMBER = 0x3
     COURSE_CORRECTION = 320
-    TWENTY_TWO_SIDED_DIE = [0, 8, 10, 12, 14, 16, 20, 22, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 36, 38, 40]
+    BASS_DECIMAL = 10
+    TWENTY_TWO_SIDED_DIE_ENCASED_IN_WATER = [0, 8, 10, 12, 14, 16, 20, 22, 24, 25, 26, 27, 28,
+                                             29, 30, 31, 32, 33, 34, 36, 38, 40]
     INDEX_TO_LETTER = {index: letter for index, letter in enumerate(ascii_lowercase, start=0)}
     LETTER_TO_INDEX = {letter: index for index, letter in enumerate(ascii_lowercase, start=0)}
     OVER_HEXED = 0xF + 0x01
@@ -34,16 +37,52 @@ class MusksUltimateMessageSafe:
                   b'\x15s\xd3\xbd\x99\x12\xad\x8b\xde\xf1\x11\x0f\xdb\xa5\xa5\xec\x80S/\x11\xf1\x1bo\xb8\xed~' \
                   b'\xe5gnsnW\xc5T\x9d\xd0&:rqr`\xc8U6\xe1\xab\xafv\x8d<\xa2q\x8f\x90&L\xeb\x1a\x1f\xd2\x9b#!'
 
-    def _get_letter_for_value(self, value):
-        if value == len(self.TWENTY_TWO_SIDED_DIE):
-            return self.INDEX_TO_LETTER[1]
-        if value == len(self.TWENTY_TWO_SIDED_DIE) + 1:
-            return self.INDEX_TO_LETTER[2]
-        if value >= len(self.INDEX_TO_LETTER):
-            return self.INDEX_TO_LETTER[0]
-        return self.INDEX_TO_LETTER[value]
+    def turn_ultimate_dial_left_to_get_a_big_number(self, starting_number, rotations_left):
+        number = sympy.Integer(starting_number)
+        number += rotations_left
+        number *= rotations_left
+        number = sympy.Pow(number, self.ULTIMATE_ANSWER)
+        number += self.__decrypt_magic_seed()
+        return number
 
-    def _continue_turning_left_until_click_is_heard(self, whole_values, offsets):
+    def turn_ultimate_dial_right_to_get_a_small_number(self, rotations_right, big_number):
+        big_number = str(big_number)
+        scrunched = big_number[:self.OVER_HEXED]
+        packed = big_number[self.OVER_HEXED:]
+        packed_1 = packed[:self.ULTIMATE_WINDAGE_ADJUSTMENT]
+        packed_2 = packed[self.ULTIMATE_WINDAGE_ADJUSTMENT:]
+        packed_1_letters = self.__convert_number_to_letters(packed_1)
+        packed_2_letters = self.__convert_number_to_letters(packed_2)
+        offset_1 = self.__unpack_to_offset_list(packed_1_letters)
+        offset_2 = self.__unpack_to_offset_list(packed_2_letters)
+        whole_values = self.__unsrunch_binrary(scrunched)
+        whole_values = self.__continue_turning_left_until_click_is_heard(whole_values, offset_2)
+        whole_values = self.__continue_turning_left_until_click_is_heard(whole_values, offset_1)
+        single_value = ''
+        for val in whole_values:
+            single_value += str(val)
+        return single_value
+
+    def turn_ultimate_dial_left_until_the_message_appears(self, rotations_left, smaller_number):
+        message = ''
+        an_idiots_luggage_combination = rotations_left
+
+        count = 0
+        smaller_number_text = str(smaller_number)
+        while count < len(smaller_number_text):
+            number = int(smaller_number_text[count: count + 4])
+            number -= an_idiots_luggage_combination
+            shift = number >> self.BITES_SHIFTED
+            if shift == self.COURSE_CORRECTION:
+                shift = int(shift / self.BASS_DECIMAL)
+            message += chr(shift)
+            count += 4
+        return message
+
+    def __decrypt_magic_seed(self):
+        return sympy.Integer(zlib.decompress(self.SECRET_SEED).decode('utf-8'))
+
+    def __continue_turning_left_until_click_is_heard(self, whole_values, offsets):
         as_ints = []
         for i in range(len(whole_values)):
             value = whole_values[i]
@@ -51,7 +90,28 @@ class MusksUltimateMessageSafe:
             as_ints.append((value * self.ULTIMATE_ANSWER) + offset)
         return as_ints
 
-    def _unscrunch_binary(self, scrunched):
+    def __consult_black_ball_with_number(self, value):
+        size_of_twenty_two_sided_die = len(self.TWENTY_TWO_SIDED_DIE_ENCASED_IN_WATER)
+        if value == size_of_twenty_two_sided_die:
+            return self.INDEX_TO_LETTER[1]
+        elif value == size_of_twenty_two_sided_die + 1:
+            return self.INDEX_TO_LETTER[2]
+        elif value >= len(self.INDEX_TO_LETTER):
+            return self.INDEX_TO_LETTER[0]
+        return self.INDEX_TO_LETTER[value]
+
+    def __consult_black_ball_with_letter(self, letter):
+        value = 0
+        for i in range(0, len(ascii_lowercase)):
+            if letter == ascii_lowercase[i]:
+                try:
+                    value = self.TWENTY_TWO_SIDED_DIE_ENCASED_IN_WATER[i]
+                except:
+                    pass
+                break
+        return value
+
+    def __unsrunch_binrary(self, scrunched):
         results = []
         scrunched = int(scrunched)
         while scrunched > 1:
@@ -62,7 +122,7 @@ class MusksUltimateMessageSafe:
             scrunched >>= 1
         return results
 
-    def _convert_number_to_letters(self, number):
+    def __convert_number_to_letters(self, number):
         number = str(number)
         as_letters = ''
         skip_next = False
@@ -76,70 +136,14 @@ class MusksUltimateMessageSafe:
                 if i == len(number) - 1:
                     continue
                 num += number[i + 1]
-                as_letters += self._get_letter_for_value(int(num))
+                as_letters += self.__consult_black_ball_with_number(int(num))
                 skip_next = True
             else:
-                as_letters += self._get_letter_for_value(as_int)
+                as_letters += self.__consult_black_ball_with_number(as_int)
         return as_letters
 
-    def _get_value_for_letter(self, letter):
-        for i in range(len(ascii_lowercase)):
-            if letter == ascii_lowercase[i]:
-                try:
-                    return self.TWENTY_TWO_SIDED_DIE[i]
-                except:
-                    return -1
-        return -1
-
-    def _unpack_to_offset_list(self, letters):
+    def __unpack_to_offset_list(self, letters):
         final = []
         for l in letters:
-            final.append(self._get_value_for_letter(l))
+            final.append(self.__consult_black_ball_with_letter(l))
         return final
-
-    def _turn_ultimate_dial_right_to_get_big_number(self, starting_number):
-        bigger = starting_number + self.ULTIMATE_ANSWER
-        even_bigger = bigger * self.ULTIMATE_ANSWER
-        huge = even_bigger ** self.ULTIMATE_ANSWER
-        seed = sympy.Integer(zlib.decompress(self.SECRET_SEED).decode('utf-8'))
-        big_number = huge + seed
-        return big_number
-
-    def _turn_ultimate_dial_left_to_get_smaller_number(self, big_number):
-        big_number = str(big_number)
-        scrunched = big_number[:self.OVER_HEXED]
-        packed = big_number[self.OVER_HEXED:]
-        packed_1 = packed[:self.ULTIMATE_WINDAGE_ADJUSTMENT]
-        packed_2 = packed[self.ULTIMATE_WINDAGE_ADJUSTMENT:]
-        packed_1_letters = self._convert_number_to_letters(packed_1)
-        packed_2_letters = self._convert_number_to_letters(packed_2)
-        offset_1 = self._unpack_to_offset_list(packed_1_letters)
-        offset_2 = self._unpack_to_offset_list(packed_2_letters)
-        whole_values = self._unscrunch_binary(scrunched)
-        whole_values = self._continue_turning_left_until_click_is_heard(whole_values, offset_2)
-        whole_values = self._continue_turning_left_until_click_is_heard(whole_values, offset_1)
-        return whole_values
-
-    def _turn_ultimate_dial_right_until_message_appears(self, data):
-        message = ''
-        for int_obj in data:
-            int_obj -= IDIOTS_LUGGAGE_SPINNER
-            shift = int_obj >> self.BITE_SHIFT_PLACES
-            if shift == self.COURSE_CORRECTION:
-                shift = int(shift / 10)
-            c = chr(shift)
-            message += c
-        return message
-
-    def open_and_discover_message(self, starting_number):
-        big_number = self._turn_ultimate_dial_right_to_get_big_number(starting_number)
-        whole_values = self._turn_ultimate_dial_left_to_get_smaller_number(big_number)
-        message = self._turn_ultimate_dial_right_until_message_appears(whole_values)
-        return message
-
-
-def main():
-    pass
-
-if __name__ == '__main__':
-    main()
