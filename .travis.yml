@@ -9,7 +9,7 @@ matrix:
         - cd python
         - python -m unittest discover
       after_success:
-        - coveralls
+        - coveralls --root ./python
 
 
     - os: linux
