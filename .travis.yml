@@ -1,5 +1,16 @@
 matrix:
   include:
+    - language: node_js 
+      node_js:
+          - "node"
+          - "8"
+          - "6"
+          - "5"
+          - "4"
+      script:
+          - make test-coveralls
+
+
     - language: python
       python: 3.4
       install:

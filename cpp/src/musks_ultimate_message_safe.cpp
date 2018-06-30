@@ -38,7 +38,7 @@ void MusksUltimateMessageSafe::TurnUltimateDialLeftToGetABigNumber(
 
     mpz_t seed;
     mpz_init(seed);
-    mpz_set_str(seed, this->DecryptMagicSeed().data(), this->BASS_DECIMAL);
+    mpz_set_str(seed, this->DecryptSecretSeed().data(), this->BASS_DECIMAL);
     mpz_add(large_number_to_fill, large_number_to_fill, seed);
     mpz_clear(seed);
 }
@@ -238,7 +238,7 @@ const std::map<const char, const int> MusksUltimateMessageSafe::GetLetterToIndex
     return letter_to_index;
 };
 
-std::string MusksUltimateMessageSafe::DecryptMagicSeed() {
+std::string MusksUltimateMessageSafe::DecryptSecretSeed() {
     z_stream infstream;
     infstream.zalloc = Z_NULL;
     infstream.zfree = Z_NULL;

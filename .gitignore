@@ -32,6 +32,7 @@
 *.app
 
 .idea/*
+*/.idea/*
 cmake-build*
 CMakeCache.txt
 CMakeFiles/
@@ -52,3 +53,4 @@ gtest.pc
 gtest_main.pc
 googletest/
 __pycache__
+node_modules/

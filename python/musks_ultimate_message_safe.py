@@ -27,8 +27,10 @@ class MusksUltimateMessageSafe:
     LUCKY_NUMBER = 0x3
     COURSE_CORRECTION = 320
     BASS_DECIMAL = 10
-    TWENTY_TWO_SIDED_DIE_ENCASED_IN_WATER = [0, 8, 10, 12, 14, 16, 20, 22, 24, 25, 26, 27, 28,
-                                             29, 30, 31, 32, 33, 34, 36, 38, 40]
+    TWENTY_TWO_SIDED_DIE_ENCASED_IN_WATER = [
+            0, 8, 10, 12, 14, 16, 20, 22, 24, 25, 26, 27, 28,
+            29, 30, 31, 32, 33, 34, 36, 38, 40
+            ]
     INDEX_TO_LETTER = {index: letter for index, letter in enumerate(ascii_lowercase, start=0)}
     LETTER_TO_INDEX = {letter: index for index, letter in enumerate(ascii_lowercase, start=0)}
     OVER_HEXED = 0xF + 0x01
@@ -42,7 +44,7 @@ class MusksUltimateMessageSafe:
         number += rotations_left
         number *= rotations_left
         number = sympy.Pow(number, self.ULTIMATE_ANSWER)
-        number += self.__decrypt_magic_seed()
+        number += self.__decrypt_secret_seed()
         return number
 
     def turn_ultimate_dial_right_to_get_a_small_number(self, rotations_right, big_number):
@@ -54,8 +56,10 @@ class MusksUltimateMessageSafe:
         packed_1_letters = self.__convert_number_to_letters(packed_1)
         packed_2_letters = self.__convert_number_to_letters(packed_2)
         offset_1 = self.__unpack_to_offset_list(packed_1_letters)
+        print(offset_1)
         offset_2 = self.__unpack_to_offset_list(packed_2_letters)
-        whole_values = self.__unsrunch_binrary(scrunched)
+        print(offset_2)
+        whole_values = self.__unscrunch_binary(scrunched)
         whole_values = self.__continue_turning_left_until_click_is_heard(whole_values, offset_2)
         whole_values = self.__continue_turning_left_until_click_is_heard(whole_values, offset_1)
         single_value = ''
@@ -79,7 +83,7 @@ class MusksUltimateMessageSafe:
             count += 4
         return message
 
-    def __decrypt_magic_seed(self):
+    def __decrypt_secret_seed(self):
         return sympy.Integer(zlib.decompress(self.SECRET_SEED).decode('utf-8'))
 
     def __continue_turning_left_until_click_is_heard(self, whole_values, offsets):
@@ -111,7 +115,7 @@ class MusksUltimateMessageSafe:
                 break
         return value
 
-    def __unsrunch_binrary(self, scrunched):
+    def __unscrunch_binary(self, scrunched):
         results = []
         scrunched = int(scrunched)
         while scrunched > 1:
