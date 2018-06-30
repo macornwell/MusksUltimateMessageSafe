@@ -244,7 +244,11 @@ std::string MusksUltimateMessageSafe::DecryptMagicSeed() {
     infstream.zfree = Z_NULL;
     infstream.opaque = Z_NULL;
 
-    Bytef buffer[this->BUFFER_SIZE] = {};
+    Bytef buffer[this->BUFFER_SIZE];
+    for(int i = 0; i < this->BUFFER_SIZE; ++i) {
+        buffer[i] = 0;
+    }
+
     std::vector<Bytef> deep_copy = this->SECRET_SEED;
 
     infstream.avail_in = (uInt)this->SECRET_SEED.size();
