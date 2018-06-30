@@ -9,6 +9,7 @@ matrix:
           - "4"
       script:
           - cd javascript
+          - npm install
           - make tests
 
 
