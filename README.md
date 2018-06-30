@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/macornwell/MusksUltimateMessageSafe.svg?branch=master)](https://travis-ci.com/macornwell/MusksUltimateMessageSafe)
+[![Coverage Status](https://coveralls.io/repos/github/macornwell/MusksUltimateMessageSafe/badge.svg?branch=master)](https://coveralls.io/github/macornwell/MusksUltimateMessageSafe?branch=master)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 
