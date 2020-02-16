@@ -33,7 +33,7 @@ matrix:
       script:
         - wget https://get.haskellstack.org/stable/linux-x86_64-static.tar.gz
         - tar -xvf ./linux-x86_64-static.tar.gz
-        - ./stack-2.1.3-linux-x86_64-static/stack test
+        - stack-2.1.3-linux-x86_64-static/stack test
 
 
     - os: linux
