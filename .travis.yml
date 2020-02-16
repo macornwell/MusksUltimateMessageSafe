@@ -32,7 +32,7 @@ matrix:
             - haskell-platform
       script:
         - wget https://get.haskellstack.org/stable/linux-x86_64-static.tar.gz
-        - tar -xvf ./linux-x86_64-static.tar.gz .
+        - tar -xvf ./linux-x86_64-static.tar.gz
         - ./linux-x86_64-static/stack test
 
 
