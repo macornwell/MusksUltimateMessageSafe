@@ -35,12 +35,19 @@ I have encoded the message in this application which is written across a number 
 whichever one suits you best and try to crack the safe. My recommendation is to read the source code and play around with the applications that
 are provided. 
 
+### Languages Supported
+This application is written in the following languages.
+- C++
+- Python
+- Haskell
+- JavaScript
+
 ### Dependencies
 Because exact calculations were needed on very large integers (in excess of 10^128) external libraries were needed.
 - The C++ version requires gmp and zlib.
 - The Python version requires sympy.
-- The JavaScript version requires mocha, pako, and big-integer.
 - The Haskell version requires the Haskell stack.
+- The JavaScript version requires mocha, pako, and big-integer.
 
 ## FAQ
 **1. Are there any hints? I can't figure it out.**
