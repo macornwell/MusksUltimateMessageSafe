@@ -36,7 +36,7 @@ matrix:
         - ../stack-2.1.3-linux-x86_64-static/stack test :MusksUltimateMessageSafe --no-terminal --coverage
 
       after_script:
-        - travis_retry curl -L https://github.com/rubik/stack-hpc-coveralls/releases/download/v0.0.3.0/shc-linux-x64-$GHCVER.tar.bz2 | tar -xj
+        - travis_retry curl -L https://github.com/rubik/stack-hpc-coveralls/releases/download/v0.0.4.0/shc-linux-x64-7.10.3.tar.bz2 | tar -xj
         - ./shc MusksUltimateMessageSafe MusksUltimateMessageSafe-test
 
 
