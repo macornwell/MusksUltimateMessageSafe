@@ -34,9 +34,9 @@ def StartSafeProgram():
     turns_left_2 = int(input("How many turns left?"))
     safe = MusksUltimateMessageSafe()
 
-    print("You set the safe on number( {0} ).".format(starting_number))
+    print("You set the safe on number ( {0} ).".format(starting_number))
     time.sleep(DRAMATIC_WAIT_IN_SECONDS)
-    print("You start to turn( {0} )turns to the left, slowly.".format(turns_left))
+    print("You start turning ( {0} ) turns to the left, slowly.".format(turns_left))
     time.sleep(DRAMATIC_WAIT_IN_SECONDS)
 
     big_number = safe.turn_ultimate_dial_left_to_get_a_big_number(starting_number, turns_left)
@@ -48,13 +48,14 @@ def StartSafeProgram():
 
     smaller_number = safe.turn_ultimate_dial_right_to_get_a_small_number(turns_right, big_number)
 
-    print("The safe turns( {0} )rotations to the right and settles on ".format(smaller_number))
+    print("The safe turns ( {0} ) rotations to the right and settles on {1}".format(turns_right, smaller_number))
     time.sleep(DRAMATIC_WAIT_IN_SECONDS)
 
     message = safe.turn_ultimate_dial_left_until_the_message_appears(turns_left_2, smaller_number)
 
-    print("You turn the safe left( {0} ) times and the following message appears...  ".format(turns_left_2))
+    print("You turn the safe left ( {0} ) times and the following message appears...  ".format(turns_left_2))
     time.sleep(DRAMATIC_WAIT_IN_SECONDS)
+    print("")
     print(message)
     time.sleep(DRAMATIC_WAIT_IN_SECONDS)
     return

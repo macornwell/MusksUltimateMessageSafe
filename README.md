@@ -40,6 +40,7 @@ Because exact calculations were needed on very large integers (in excess of 10^1
 - The C++ version requires gmp and zlib.
 - The Python version requires sympy.
 - The JavaScript version requires mocha, pako, and big-integer.
+- The Haskell version requires the Haskell stack.
 
 ## FAQ
 **1. Are there any hints? I can't figure it out.**

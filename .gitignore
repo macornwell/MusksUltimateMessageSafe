@@ -6,6 +6,7 @@
 *.lo
 *.o
 *.obj
+*.hi
 
 # Precompiled Headers
 *.gch
@@ -53,3 +54,5 @@ gtest_main.pc
 googletest/
 __pycache__
 node_modules/
+.stack-work/
+
