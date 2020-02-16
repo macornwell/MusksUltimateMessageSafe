@@ -26,8 +26,12 @@ matrix:
 
     - os: linux
       language: haskell 
-      ghc: 7.8
+      addons:
+        apt:
+          packages:
+            - haskell-platform
       script:
+
         - wget https://get.haskellstack.org/stable/linux-x86_64-static.tar.gz
         - tar -xvf ./linux-x86_64-static.tar.gz .
         - cabal configure --enable-tests --enable-library-coverage && cabal build && cabal test
