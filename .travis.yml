@@ -25,20 +25,15 @@ matrix:
         - coveralls --root ./python
 
     - os: linux
-      language: haskell 
+      language: c 
       addons:
         apt:
           packages:
             - haskell-platform
       script:
-
         - wget https://get.haskellstack.org/stable/linux-x86_64-static.tar.gz
         - tar -xvf ./linux-x86_64-static.tar.gz .
-        - cabal configure --enable-tests --enable-library-coverage && cabal build && cabal test
         - ./linux-x86_64-static/stack test
-
-      after_success:
-        - hpc-coveralls
 
 
     - os: linux
