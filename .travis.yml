@@ -26,10 +26,9 @@ matrix:
 
     - os: linux
       language: c 
-      addons:
-        apt:
-          packages:
-            - haskell-platform
+      cache:
+        directories:
+          - $HOME/.stack
       script:
         - wget https://get.haskellstack.org/stable/linux-x86_64-static.tar.gz
         - tar -xvf ./linux-x86_64-static.tar.gz
