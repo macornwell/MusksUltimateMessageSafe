@@ -55,4 +55,5 @@ googletest/
 __pycache__
 node_modules/
 .stack-work/
-
+.hspec-failures
+stack.yaml.lock
