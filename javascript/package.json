@@ -12,7 +12,7 @@
     "extend": ">=3.0.2",
     "js-yaml": ">=3.13.1",
     "big-integer": "^1.6.32",
-    "mocha": "^5.2.0",
+    "mocha": "^10.2.0",
     "pako": "^1.0.6"
   },
   "devDependencies": {
